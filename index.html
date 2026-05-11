@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiblioTech — Inventario de libros</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h2 class="mt-3 ms-3">BiblioTech</h2>
+<p class="text-muted ms-3">Registro de libros, precio de venta por conservación y valor total del inventario.</p>
+<hr>
+
+<section id="seccionFormularioLibro">
+<div class="container mt-3">
+  <h3>Registrar libro</h3>
+  <form action="javascript:crearLibro();">
+    <div class="mb-3">
+      <label for="tipoLibroId">Tipo de libro</label>
+      <select class="form-select" id="tipoLibroId" onchange="actualizarCamposTipoLibro();">
+        <option value="fisico">Físico</option>
+        <option value="digital">Digital</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="isbnId">ISBN</label>
+      <input type="text" class="form-control" id="isbnId" placeholder="ISBN" required>
+    </div>
+    <div class="mb-3">
+      <label for="tituloId">Título</label>
+      <input type="text" class="form-control" id="tituloId" placeholder="Título" required>
+    </div>
+    <div class="mb-3">
+      <label for="autorId">Autor</label>
+      <input type="text" class="form-control" id="autorId" placeholder="Autor" required>
+    </div>
+    <div class="mb-3">
+      <label for="precioBaseId">Precio base (COP)</label>
+      <input type="number" min="0" class="form-control" id="precioBaseId" placeholder="Precio base entero" required>
+    </div>
+    <div class="mb-3">
+      <label for="estadoConservacionId">Estado de conservación</label>
+      <select class="form-select" id="estadoConservacionId">
+        <option value="N">N — Nuevo (+ $ 30.000)</option>
+        <option value="B">B — Bueno (+ $ 20.000)</option>
+        <option value="R">R — Regular (+ $ 10.000)</option>
+        <option value="D">D — Deteriorado (+ $ 0)</option>
+      </select>
+    </div>
+    <div class="mb-3" id="filaUbicacion">
+      <label for="ubicacionId">Ubicación (físico)</label>
+      <input type="text" class="form-control" id="ubicacionId" placeholder="Estante / sala">
+    </div>
+    <div class="mb-3" id="filaFormato" style="display:none;">
+      <label for="formatoArchivoId">Formato de archivo (digital)</label>
+      <input type="text" class="form-control" id="formatoArchivoId" placeholder="PDF, EPUB, etc.">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar libro</button>
+  </form>
+</div>
+</section>
+
+<hr>
+
+<div class="container mt-3 mb-5">
+  <h3>Inventario</h3>
+  <p class="lead">Total inventario: <strong id="totalInventarioId">$ 0</strong></p>
+  <table class="table table-hover table-bordered" id="tablaLibros">
+    <thead class="table-light">
+      <tr>
+        <th>No.</th>
+        <th>Tipo</th>
+        <th>ISBN</th>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Precio base</th>
+        <th>Estado</th>
+        <th>Ubicación / Formato</th>
+        <th>Precio venta</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<!--
+  Orden de carga (POO):
+  1. Clase padre Libro
+  2. Clases hijas Fisico, Digital
+  3. Controlador
+-->
+<script src="model/Libro.js"></script>
+<script src="model/Fisico.js"></script>
+<script src="model/Digital.js"></script>
+<script src="controller/main.js"></script>
+<script src="js/script.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    actualizarCamposTipoLibro();
+    mostrarLibros();
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
